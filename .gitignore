@@ -1,0 +1,55 @@
+# Output docx
+docx/*
+*.docx
+
+# data
+data/*.Rdata
+data-raw/*
+seq/*
+old-data/*
+old-data-raw/*
+
+# figures
+fig/*
+
+# html
+*.html
+
+# tables
+tables/*
+!tables/table-01-selected-accessions.csv
+
+# accidental plots
+src/Rplots.*
+
+# R generics
+# History files
+.Rhistory
+.Rapp.history
+
+# Session Data files
+*.RData
+
+# RStudio files
+*.Rproj
+.Rproj.user/
+# The Rproject in src is actually useful
+!src/ird-acc-paper-src.Rproj
+
+# knitr and R markdown default cache directories
+/*_cache/
+/cache/
+
+# Temporary files created by R markdown
+*.utf8.md
+*.knit.md
+.Rproj.user
+
+# mac
+.DS_Store
+
+# temporary files
+fix_gene_names/*
+
+# fluidigm
+analyze-fluidigm/extra-data/*
