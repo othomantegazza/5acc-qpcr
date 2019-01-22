@@ -20,8 +20,8 @@ gm_mean <-  function(x, na.rm=TRUE){
 # Load fluidigm data ------------------------------------------------------
 
 
-read_fluidigm <- function(path) {
-  out <- read_excel(path) %>%
+read_fluidigm <- function(path, sheet = 1) {
+  out <- read_excel(path, sheet = sheet) %>%
     select(sampleName, GeneName,
            LOC_Name, Value, Type__1) %>%
     dplyr::rename(sample_name = sampleName,

@@ -7,7 +7,7 @@ source("helper_functions_fluidigm.R")
 
 load("data/ap2_fluidigm.Rdata")
 
-cls <- read_csv("../data-raw/annotated_clusters_scaled_l2fc.csv") %>%
+cls <- read_csv("../ird-5acc-paper/data-raw/annotated_clusters_scaled_l2fc.csv") %>%
   dplyr::rename(locus_id = "MsuID")
 
 # cl4 <- cls %>% filter(cluster == 4)
