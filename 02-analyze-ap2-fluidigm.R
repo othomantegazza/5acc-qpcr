@@ -1,5 +1,4 @@
 library(tidyverse)
-library(readxl)
 
 source("helper_functions_fluidigm.R")
 

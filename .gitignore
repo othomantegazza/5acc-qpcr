@@ -1,5 +1,9 @@
 # soruce: https://github.com/github/gitignore/blob/master/R.gitignore
 
+# big raw data file
+data/Fluidgmdata_publi.xlsx
+
+
 # intermediate data
 data/*.Rdata
 

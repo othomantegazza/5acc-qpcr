@@ -1,13 +1,11 @@
 library(tidyverse)
-library(readxl)
 
 source("helper_functions_fluidigm.R")
 
-chip3 <- read_fluidigm("data/fludigm_validate_sample_chip3.xlsx")
-chip4 <- read_fluidigm("data/fludigm_validate_sample_chip4.xlsx")
+chip3 <- read_csv("data/table-SX-fluidigm-chip3.csv")
+chip4 <- read_csv("data/table-SX-fluidigm-chip4.csv")
 
 norms <- c("HK04", "HK09", "HKludo01", "HKludo02")
-
 
 normalize_chip <- function(chip) 
 {
