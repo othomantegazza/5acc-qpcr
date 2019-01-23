@@ -2,8 +2,14 @@ library(tidyverse)
 
 source("helper_functions_fluidigm.R")
 
+
+# Load data ---------------------------------------------------------------
+
 chip3 <- read_csv("data/table-SX-fluidigm-chip3.csv")
 chip4 <- read_csv("data/table-SX-fluidigm-chip4.csv")
+
+
+# normalize and save ------------------------------------------------------
 
 norms <- c("HK04", "HK09", "HKludo01", "HKludo02")
 
@@ -24,7 +30,7 @@ normalize_chip <- function(chip)
     mutate(expression = round(expression, digits = 5))
 }
 
-chip3_exp <- chip3 %>% normalize_chip()
-chip4_exp <- chip4 %>% normalize_chip()
+chip3 %>% normalize_chip() %>% saveRDS("data/chip3-normalized.Rds")
+chip4 %>% normalize_chip() %>% saveRDS("data/chip4-normalized.Rds")
 
-save(chip3_exp, chip4_exp, file = "data/fluidigm-confim-sampling.Rdata")
+
