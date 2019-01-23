@@ -3,14 +3,23 @@ library(magrittr)
 library(cowplot)
 
 
-source("../analyze-fluidigm/helper_functions_fluidigm.R")  
+source("helper_functions_fluidigm.R")  
 
+chip3 <- readRDS("data/chip3-normalized.Rds")
+chip4 <- readRDS("data/chip4-normalized.Rds")
+
+
+# Select marker genes -----------------------------------------------------
+
+genes <- c("FZP|BFL1|SGDP7", "G1L5 TAW", "LAX1", "OsMADS01 LHS1")
 
 # Load file ---------------------------------------------------------------
 
-load(file = "../data/fluidigm-confim-sampling.Rdata")
-
-qpcr_exp <- bind_rows(chip3_exp, chip4_exp) %>%
+qpcr_exp <- 
+  bind_rows(chip3, chip4) %>%
+  filter(target_name %in% genes) %>% 
+  mutate(target_name = case_when(target_name == "FZP|BFL1|SGDP7" ~ "FZP",
+                                 TRUE ~ target_name)) %>% 
   scale_tidy_fluidigm() %>%
   # filter(species != "Osj") %>% 
   mutate(species = case_when(species == "Or" ~ "O. rufipogon",
@@ -63,39 +72,37 @@ p <-
   labs(title = "qPCR expression of selected marker genes [semi-log plot]")
 
 
-pdf("../fig/suppl-fig-qpcr-confirms-sampling.pdf",
-    height = 10, width = 6.2,
+pdf("fig/suppl-fig-qpcr-confirms-sampling.pdf",
+    height = 6.5, width = 6.2,
     paper = "a4")
 
-p_comb %>%
-  ggdraw() %>%
-  print()
+p %>% print()
 
 dev.off()
 
 # Add tiff figure to plot -------------------------------------------------
 
-# Note
-#
-# compressed with:
-# tiffcp -c zip \
-#     data-raw/FigMeristemCollect.tif \
-#     data-raw/FigMeristemCollect-compr.tif 
-
-p_img <- ggdraw() +  
-  draw_image("../data-raw/FigXX MeristemCollect.tif")
-
-p_comb <- plot_grid(p_img, p,
-                    labels = c("1.", "2."),
-                    nrow = 2,
-                    rel_heights = c(1, 2))
-
-pdf("../fig/suppl-fig-qpcr-confirms-sampling.pdf",
-    height = 10, width = 6.2,
-    paper = "a4")
-
-p_comb %>%
-  ggdraw() %>%
-  print()
-
-dev.off()
+# # Note
+# #
+# # compressed with:
+# # tiffcp -c zip \
+# #     data-raw/FigMeristemCollect.tif \
+# #     data-raw/FigMeristemCollect-compr.tif 
+# 
+# p_img <- ggdraw() +  
+#   draw_image("../data-raw/FigXX MeristemCollect.tif")
+# 
+# p_comb <- plot_grid(p_img, p,
+#                     labels = c("1.", "2."),
+#                     nrow = 2,
+#                     rel_heights = c(1, 2))
+# 
+# pdf("../fig/suppl-fig-qpcr-confirms-sampling.pdf",
+#     height = 10, width = 6.2,
+#     paper = "a4")
+# 
+# p_comb %>%
+#   ggdraw() %>%
+#   print()
+# 
+# dev.off()
