@@ -7,6 +7,9 @@ data/Fluidgmdata_publi.xlsx
 data/*.Rdata
 data/*.Rds
 
+# figuires
+fig/*
+
 # History files
 .Rhistory
 .Rapp.history

@@ -4,20 +4,22 @@ library(gridExtra)
 
 source("helper_functions_fluidigm.R")  
 
+chip3 <- readRDS("data/chip3-normalized.Rds")
+chip4 <- readRDS("data/chip4-normalized.Rds")
 
-load("data/ap2_fluidigm.Rdata")
 
-cls <- read_csv("../ird-5acc-paper/data-raw/annotated_clusters_scaled_l2fc.csv") %>%
-  dplyr::rename(locus_id = "MsuID")
+# select ap2 genes -------------------------------------------------------
 
-# cl4 <- cls %>% filter(cluster == 4)
-cl5 <- cls %>% filter(cluster == 5)
+ap2s <- c("AP37|OsERF3", "EREBP129 - OsRAV2", "ERF33", "ERF93 / OsERF1")
+
+ap2_exp <- 
+  bind_rows(chip3, chip4) %>% 
+  filter(target_name %in% ap2s)
 
 # Dot plot ---------------------------------------------------------------
 
 dat <-  
   ap2_exp %>%
-  filter(locus_id %in% cl5$locus_id) %>%
   scale_tidy_fluidigm() %>%
   filter(species != "Osj") %>% 
   mutate(species = case_when(species == "Or" ~ "O. rufipogon",
@@ -70,11 +72,9 @@ plts <-
 #   cowplot::ggdraw()
 
 
-pdf("../fig/Figure_S8-suppl-fig-fluidigm-ap2.pdf",
+pdf("fig/Figure_S8-suppl-fig-fluidigm-ap2.pdf",
     height = 9, width = 9,
     paper = "a4")
-# do the inches really matter?
-# PDF rescales (vector)
 plts %>% print()
 dev.off()
 
