@@ -1,3 +1,11 @@
+#!/usr/bin/env Rscript
+
+# set log
+log <- file(snakemake@log[[1]], open = "wt")
+sink(log, type = "message")
+sink(log, append = TRUE, type = "output")
+
+
 library(tidyverse)
 
 source("helper_functions_fluidigm.R")
@@ -5,8 +13,8 @@ source("helper_functions_fluidigm.R")
 
 # Load data ---------------------------------------------------------------
 
-chip3 <- read_csv("data/table-SX-fluidigm-chip3.csv")
-chip4 <- read_csv("data/table-SX-fluidigm-chip4.csv")
+chip3 <- read_csv(snakemake@input[["chip3"]])
+chip4 <- read_csv(snakemake@input[["chip4"]])
 
 
 # normalize and save ------------------------------------------------------
@@ -30,7 +38,10 @@ normalize_chip <- function(chip)
     mutate(expression = round(expression, digits = 5))
 }
 
-chip3 %>% normalize_chip() %>% saveRDS("data/chip3-normalized.Rds")
-chip4 %>% normalize_chip() %>% saveRDS("data/chip4-normalized.Rds")
+chip3 %>% normalize_chip() %>% saveRDS(snakemake@output[["chip3"]])
+chip4 %>% normalize_chip() %>% saveRDS(snakemake@output[["chip4"]])
+
+# Log
+sessionInfo()
 
 
