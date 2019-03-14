@@ -87,6 +87,7 @@ qpcr_imputed2 <- qpcr_imputed %>%
 p <- 
     qpcr_imputed2 %>%
     filter(target_name != "OsMADS14") %>% 
+    filter(species != "O. sativa japonica") %>% 
     {lineplot_fluidigm(nm = "Sampling Check", dat = .)} +
     scale_y_log10() +
     theme_minimal(base_size = 8, base_family = "Helvetica") +
