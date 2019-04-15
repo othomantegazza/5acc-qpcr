@@ -8,7 +8,7 @@ singularity_container = ('shub://TomHarrop/'
 rule target:
     input:
         'fig/Figure_S4.pdf',
-        'fig/Figure_S10.pdf'
+        'fig/Figure_S9.pdf'
 
 rule qpcr_confirms_sampling:
     input:
@@ -29,7 +29,7 @@ rule ap2:
         chip3 = "data/chip3-normalized.Rds",
         chip4 = "data/chip4-normalized.Rds"
     output:
-        f1 = "fig/Figure_S10.pdf"
+        f1 = "fig/Figure_S9.pdf"
     log:
         'logs/fig_S8_ap2.log'
     singularity:
